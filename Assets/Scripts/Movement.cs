@@ -20,12 +20,17 @@ public class Movement : MonoBehaviour
     public LayerMask ground;
     public Transform playerPos;
     public bool isInverse = false;
+    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         leftLegRb = leftLeg.GetComponent<Rigidbody2D>();
         rightLegRb = rightLeg.GetComponent<Rigidbody2D>();
+        if(gameManager.GetComponent<GameManager>().inverse)
+        {
+            isInverse = true;
+        }
     }
 
     // Update is called once per frame
