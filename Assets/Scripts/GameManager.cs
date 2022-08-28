@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
     {
         normalBlocks = new List<GameObject>();
         invisbleBlocks = new List<GameObject>();
-        spawnPlatforms(5);
-        StartCoroutine(SituationChanger(10));
+        StartCoroutine(SpawnPlatforms(100, 5));
+        StartCoroutine(SituationChanger(20));
     }
 
     // Update is called once per frame
@@ -33,12 +33,12 @@ public class GameManager : MonoBehaviour
             int rand = Random.Range(0, 100) % 2;
             switch (rand) {
                 case 0:
-                    inverse = true;
+                    inverse = false;
                     switchBlockColliders(false);
                     titleText.text = "THIS";
                     break;
                 case 1:
-                    inverse = false;
+                    inverse = true;
                     switchBlockColliders(true);
                     titleText.text = "THEN";
                     break;
@@ -47,8 +47,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void spawnPlatforms(int platformCount) 
+    IEnumerator SpawnPlatforms(int platformCount, int seconds)
     {
+        yield return new WaitForSeconds(seconds);
         float y = -2.5f, x = -2f;
         int blockCountInRow = 5;
         for (int i = 0; i < platformCount; i++) {
