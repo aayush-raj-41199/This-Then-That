@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5285209000957084692}
   - component: {fileID: 5285209000957084693}
   - component: {fileID: 5285209000957084691}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InvisibleBlock
   m_TagString: InvisibleBlock
   m_Icon: {fileID: 0}
