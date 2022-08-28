@@ -15,10 +15,12 @@ public class Movement : MonoBehaviour
     [SerializeField] float speed = 1.5f;
     [SerializeField] float stepWait = 0.5f;
     [SerializeField] float jumpForce = 10f;
-    private bool isOnGround;
+    private bool isOnGround = false;
     public float positionRadius;
     public LayerMask ground;
     public Transform playerPos;
+    public Transform rightHandPos;
+    public Transform leftHandPos;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +66,17 @@ public class Movement : MonoBehaviour
             anim.Play("Idle");
         }
 
-        isOnGround = Physics2D.OverlapCircle(playerPos.position, positionRadius, ground);
+
+        if (Physics2D.OverlapCircle(playerPos.position, positionRadius, ground) || Physics2D.OverlapCircle(rightHandPos.position, positionRadius, ground) || Physics2D.OverlapCircle(leftHandPos.position, positionRadius, ground)) 
+        {
+            isOnGround = true;
+        }
+        else
+        {
+            isOnGround = false;
+        }
+
+
         if (isOnGround == true && Input.GetKeyDown(KeyCode.Space))
         {
             Rb.AddForce(Vector2.up * jumpForce);

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            int rand = Random.Range(0, 100) % 2;
+            int rand = 0;//Random.Range(0, 100) % 2;
             switch (rand) {
                 case 0:
                     inverse = false;
