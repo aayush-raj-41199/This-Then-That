@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public Text titleText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
+    bool toggle = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,19 +31,19 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            int rand = Random.Range(0, 100) % 2;
-            switch (rand) {
-                case 0:
-                    titleText.text = "THIS";
-                    inverse = false;
-                    switchBlockColliders(false);
-                    break;
-                case 1:
-                    titleText.text = "THEN";
-                    inverse = true;
-                    switchBlockColliders(true);
-                    break;
+            if (toggle)
+            {
+                titleText.text = "THIS";
+                inverse = false;
+                switchBlockColliders(false);
             }
+            else
+            {
+                titleText.text = "THEN";
+                inverse = true;
+                switchBlockColliders(true);
+            }
+            toggle = !toggle;
             yield return new WaitForSeconds(seconds);
         }
     }
