@@ -6,13 +6,14 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static bool inverse = false;
-    public GameObject normalBlock, invisibleBlock, player, playerhead;
-    public Text titleText, scoreText;
+    public GameObject normalBlock, invisibleBlock, player, playerhead, endGameScreen;
+    public Text titleText, scoreText, timeText, endScoreText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
     bool toggle = false;
     float highestY = -100, startY=0;
     public bool startAnimationFinished = false;
+    float startTime = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         startAnimationFinished = true;
         startY = playerhead.transform.position.y;
+        startTime = Time.time;
         player.GetComponent<Movement>().enabled = true;
     }
     // Update is called once per frame
@@ -34,8 +36,19 @@ public class GameManager : MonoBehaviour
         if (startAnimationFinished)
         {
             highestY = Mathf.Max(playerhead.transform.position.y, highestY);
-            scoreText.text = "" + (int)((highestY - startY)/2);
+            scoreText.text = "Score : " + (int)((highestY - startY)/2);
+            endScoreText.text = "Your Score : " + (int)((highestY - startY) / 2);
+            int tm = (int)(Time.time - startTime);
+            timeText.text = "" + tm;
+            if (tm == 20) {
+                gameEnd();
+            }
         }
+    }
+    void gameEnd() {
+        Time.timeScale = 0;
+        Debug.Log("GameEnd");
+        endGameScreen.SetActive(true);
     }
 
     IEnumerator SituationChanger(int seconds) 
@@ -50,7 +63,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                titleText.text = "THEN";
+                titleText.text = "THAT";
                 inverse = true;
                 switchBlockColliders(true);
             }
@@ -85,23 +98,29 @@ public class GameManager : MonoBehaviour
                     invisbleBlocks.Add(block);
                 }
                 s += c;
-                if (s == 0 && normalBlocks.Count >= blockCountInRow)
+                if(j == blockCountInRow)
                 {
-                    int k = normalBlocks.Count - blockCountInRow, cnt = 0;
-                    while (cnt < blockCountInRow) {
-                        Destroy(normalBlocks[k].gameObject);
-                        k++;
-                        cnt++;
-                    }
-                }
-                else if (s == blockCountInRow && invisbleBlocks.Count >= blockCountInRow)
-                {
-                    int k = invisbleBlocks.Count - blockCountInRow, cnt = 0;
-                    while (cnt < blockCountInRow)
+                    if (s == 0 && normalBlocks.Count >= blockCountInRow)
                     {
-                        Destroy(invisbleBlocks[k].gameObject);
-                        k++;
-                        cnt++;
+                        int k = normalBlocks.Count - blockCountInRow, cnt = 0;
+                        while (cnt < blockCountInRow)
+                        {
+                            GameObject gameObject = normalBlocks[k].gameObject;
+                            Destroy(gameObject);
+                            k++;
+                            cnt++;
+                        }
+                    }
+                    else if (s == blockCountInRow && invisbleBlocks.Count >= blockCountInRow)
+                    {
+                        int k = invisbleBlocks.Count - blockCountInRow, cnt = 0;
+                        while (cnt < blockCountInRow)
+                        {
+                            GameObject gameObject = invisbleBlocks[k].gameObject;
+                            Destroy(gameObject);
+                            k++;
+                            cnt++;
+                        }
                     }
                 }
                 else
