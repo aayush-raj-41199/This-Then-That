@@ -20,13 +20,13 @@ public class GameManager : MonoBehaviour
         normalBlocks = new List<GameObject>();
         invisbleBlocks = new List<GameObject>();
         StartCoroutine(SpawnPlatforms(100, 5));
-        StartCoroutine(SituationChanger(20));
     }
 
     void setStartAnimationFinished()
     {
         startAnimationFinished = true;
         startY = playerhead.transform.position.y;
+        player.GetComponent<Movement>().enabled = true;
     }
     // Update is called once per frame
     void Update()
@@ -62,7 +62,9 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnPlatforms(int platformCount, int seconds)
     {
         yield return new WaitForSeconds(seconds);
+        titleText.gameObject.SetActive(true);
         setStartAnimationFinished();
+        StartCoroutine(SituationChanger(20));
         float y = -2.5f, x = -2f;
         int blockCountInRow = 5;
         for (int i = 0; i < platformCount; i++) {
