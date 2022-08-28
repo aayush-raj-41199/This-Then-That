@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2948456080518819079}
   - component: {fileID: 2948456080518819077}
   - component: {fileID: 2948456080518819076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightUpperArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 2948456081068283224}
   - component: {fileID: 2948456081068283227}
   - component: {fileID: 2948456081068283223}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightLowerLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 2948456081176006375}
   - component: {fileID: 2948456081176006374}
   - component: {fileID: 2948456081176006370}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   - component: {fileID: 2948456081591206782}
   - component: {fileID: 2948456081591206783}
   - component: {fileID: 2948456081591206778}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2948456081601052676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerToGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 2948456081781841543}
   - component: {fileID: 2948456081781841541}
   - component: {fileID: 2948456081781841540}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: StickMan
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -774,6 +774,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerPos: {fileID: 2948456081601052676}
+  isInverse: 0
+  gameManager: {fileID: 0}
 --- !u!1 &2948456081989716861
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +789,7 @@ GameObject:
   - component: {fileID: 2948456081989716857}
   - component: {fileID: 2948456081989716856}
   - component: {fileID: 2948456081989716859}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftUpperArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -945,7 +947,7 @@ GameObject:
   - component: {fileID: 2948456082004600283}
   - component: {fileID: 2948456082004600282}
   - component: {fileID: 2948456082004600285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightLowerArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1104,7 +1106,7 @@ GameObject:
   - component: {fileID: 2948456082048423620}
   - component: {fileID: 2948456082048423623}
   - component: {fileID: 2948456082048423619}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftLowerLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1277,7 +1279,7 @@ GameObject:
   - component: {fileID: 2948456082327928245}
   - component: {fileID: 2948456082327928244}
   - component: {fileID: 2948456082327928240}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftUpperLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1449,7 +1451,7 @@ GameObject:
   - component: {fileID: 2948456082414946452}
   - component: {fileID: 2948456082414946455}
   - component: {fileID: 2948456082414946454}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftLowerArm
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1608,7 +1610,7 @@ GameObject:
   - component: {fileID: 2948456082580794062}
   - component: {fileID: 2948456082580794033}
   - component: {fileID: 2948456082580794061}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightUpperLeg
   m_TagString: Player
   m_Icon: {fileID: 0}
