@@ -19,18 +19,12 @@ public class Movement : MonoBehaviour
     public float positionRadius;
     public LayerMask ground;
     public Transform playerPos;
-    public bool isInverse = false;
-    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         leftLegRb = leftLeg.GetComponent<Rigidbody2D>();
         rightLegRb = rightLeg.GetComponent<Rigidbody2D>();
-        if(gameManager.GetComponent<GameManager>().inverse)
-        {
-            isInverse = true;
-        }
     }
 
     // Update is called once per frame
@@ -40,7 +34,7 @@ public class Movement : MonoBehaviour
         {
             if (Input.GetAxisRaw("Horizontal") > 0)
             {
-                if (!isInverse)
+                if (!GameManager.inverse)
                 {
                     anim.Play("WalkRight");
                     StartCoroutine(MoveRight(stepWait));
@@ -53,7 +47,7 @@ public class Movement : MonoBehaviour
             }
             else
             {
-                if (!isInverse)
+                if (!GameManager.inverse)
                 {
                     anim.Play("WalkLeft");
                     StartCoroutine(MoveLeft(stepWait));
@@ -75,7 +69,6 @@ public class Movement : MonoBehaviour
         {
             Rb.AddForce(Vector2.up * jumpForce);
         }
-
     }
 
     IEnumerator MoveRight(float seconds)
