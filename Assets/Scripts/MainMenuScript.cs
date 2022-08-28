@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
@@ -26,5 +27,11 @@ public class MainMenuScript : MonoBehaviour
         ground1.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         ground2.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         tapToPlay.gameObject.SetActive(false);
+        StartCoroutine(loadLevel());
+    }
+
+    IEnumerator loadLevel() {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(1);
     }
 }

@@ -38,9 +38,9 @@ public class GameManager : MonoBehaviour
             highestY = Mathf.Max(playerhead.transform.position.y, highestY);
             scoreText.text = "Score : " + (int)((highestY - startY)/2);
             endScoreText.text = "Your Score : " + (int)((highestY - startY) / 2);
-            int tm = (int)(Time.time - startTime);
+            int tm = (int)(60 - Time.time + startTime);
             timeText.text = "" + tm;
-            if (tm == 20) {
+            if (tm == 0) {
                 gameEnd();
             }
         }
