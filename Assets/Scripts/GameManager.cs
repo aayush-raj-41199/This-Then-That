@@ -87,13 +87,22 @@ public class GameManager : MonoBehaviour
                 s += c;
                 if (s == 0 && normalBlocks.Count >= blockCountInRow)
                 {
-                    // remove last 5 normal blocks
-                    normalBlocks.RemoveRange(normalBlocks.Count - blockCountInRow, blockCountInRow);
+                    int k = normalBlocks.Count - blockCountInRow, cnt = 0;
+                    while (cnt < blockCountInRow) {
+                        Destroy(normalBlocks[k].gameObject);
+                        k++;
+                        cnt++;
+                    }
                 }
                 else if (s == blockCountInRow && invisbleBlocks.Count >= blockCountInRow)
                 {
-                    // remove last 5 invisble blocks
-                    invisbleBlocks.RemoveRange(invisbleBlocks.Count - blockCountInRow, blockCountInRow);
+                    int k = invisbleBlocks.Count - blockCountInRow, cnt = 0;
+                    while (cnt < blockCountInRow)
+                    {
+                        Destroy(invisbleBlocks[k].gameObject);
+                        k++;
+                        cnt++;
+                    }
                 }
                 else
                 {
