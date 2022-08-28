@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     {
         startAnimationFinished = true;
         startY = playerhead.transform.position.y;
+        player.GetComponent<Movement>().enabled = true;
     }
     // Update is called once per frame
     void Update()
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnPlatforms(int platformCount, int seconds)
     {
         yield return new WaitForSeconds(seconds);
+        titleText.gameObject.SetActive(true);
         setStartAnimationFinished();
         StartCoroutine(SituationChanger(20));
         float y = -2.5f, x = -2f;
