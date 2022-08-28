@@ -6,13 +6,12 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static bool inverse = false;
-    public GameObject normalBlock, invisibleBlock, player;
+    public GameObject normalBlock, invisibleBlock, player, playerhead;
     public Text titleText, scoreText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
-    Animator titleAnimation;
     bool toggle = false;
-    float highestY = 0, startY=0;
+    float highestY = -100, startY=0;
     public bool startAnimationFinished = false;
 
     // Start is called before the first frame update
@@ -27,15 +26,15 @@ public class GameManager : MonoBehaviour
     void setStartAnimationFinished()
     {
         startAnimationFinished = true;
-        startY = player.transform.position.y;
+        startY = playerhead.transform.position.y;
     }
     // Update is called once per frame
     void Update()
     {
         if (startAnimationFinished)
         {
-            highestY = Mathf.Max(player.transform.position.y, highestY);
-            titleText.text = "" + (int)((highestY - startY));
+            highestY = Mathf.Max(playerhead.transform.position.y, highestY);
+            scoreText.text = "" + (int)((highestY - startY)/2);
         }
     }
 
@@ -63,6 +62,7 @@ public class GameManager : MonoBehaviour
     IEnumerator SpawnPlatforms(int platformCount, int seconds)
     {
         yield return new WaitForSeconds(seconds);
+        setStartAnimationFinished();
         float y = -2.5f, x = -2f;
         int blockCountInRow = 5;
         for (int i = 0; i < platformCount; i++) {
