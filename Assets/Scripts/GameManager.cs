@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public static bool inverse = true;
+    public static bool inverse = false;
     public GameObject normalBlock, invisibleBlock;
     public Text titleText;
     List<GameObject> normalBlocks;
@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
         
     }
 
-    IEnumerator SituationChanger(int seconds) {
+    IEnumerator SituationChanger(int seconds) 
+    {
         while (true)
         {
             int rand = Random.Range(0, 100) % 2;
@@ -46,11 +47,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void spawnPlatforms(int platformCount) {
+    void spawnPlatforms(int platformCount) 
+    {
         float y = -2.5f, x = -2f;
         int blockCountInRow = 5;
         for (int i = 0; i < platformCount; i++) {
             x = -2f;
+            int s = 0;
             for (int j = 0; j < blockCountInRow; j++)
             {
                 int c = Random.Range(1, 50) % 2;
@@ -65,12 +68,27 @@ public class GameManager : MonoBehaviour
                 {
                     invisbleBlocks.Add(block);
                 }
+                s += c;
             }
-            y += 2.5f;
+            if (s == 0)
+            {
+                // remove last 5 normal blocks
+                normalBlocks.RemoveRange(normalBlocks.Count - 6, 5);
+            }
+            else if (s == 5) 
+            {
+                // remove last 5 invisble blocks
+                normalBlocks.RemoveRange(normalBlocks.Count - 6, 5);
+            }
+            else
+            {
+                y += 2.5f;
+            }
         }
     }
 
-    void switchBlockColliders(bool normal) {
+    void switchBlockColliders(bool normal) 
+    {
         foreach(GameObject gameObject in normalBlocks) {
             gameObject.GetComponent<BoxCollider2D>().enabled = normal;
         }
