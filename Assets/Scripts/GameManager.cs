@@ -7,10 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static bool inverse = false;
     public GameObject normalBlock, invisibleBlock, player;
-    public Text titleText;
+    public Text titleText, scoreText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
+    Animator titleAnimation;
     bool toggle = false;
+    float highestY = 0, startY=0;
+    public bool startAnimationFinished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -21,10 +24,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SituationChanger(20));
     }
 
+    void setStartAnimationFinished()
+    {
+        startAnimationFinished = true;
+        startY = player.transform.position.y;
+    }
     // Update is called once per frame
     void Update()
     {
-        
+        if (startAnimationFinished)
+        {
+            highestY = Mathf.Max(player.transform.position.y, highestY);
+            titleText.text = "" + (int)((highestY - startY));
+        }
     }
 
     IEnumerator SituationChanger(int seconds) 
@@ -56,12 +68,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < platformCount; i++) {
             x = -2f;
             int s = 0;
-            for (int j = 0; j < blockCountInRow; j++)
+            int j = 0;
+            while (j < blockCountInRow)
             {
                 int c = Random.Range(1, 50) % 2;
                 Vector3 pos = new Vector3(x, y, 0);
                 GameObject block = Instantiate(c == 0 ? normalBlock : invisibleBlock, pos, new Quaternion());
-                x += 1;
                 if (c == 0)
                 {
                     normalBlocks.Add(block);
@@ -71,21 +83,28 @@ public class GameManager : MonoBehaviour
                     invisbleBlocks.Add(block);
                 }
                 s += c;
+                if (s == 0 && normalBlocks.Count >= blockCountInRow)
+                {
+                    // remove last 5 normal blocks
+                    normalBlocks.RemoveRange(normalBlocks.Count - blockCountInRow, blockCountInRow);
+                }
+                else if (s == blockCountInRow && invisbleBlocks.Count >= blockCountInRow)
+                {
+                    // remove last 5 invisble blocks
+                    invisbleBlocks.RemoveRange(invisbleBlocks.Count - blockCountInRow, blockCountInRow);
+                }
+                else
+                {
+                    x += 1;
+                    j++;
+                    continue;
+                }
+                x = -2f;
+                s = 0;
+                j = 0;
             }
-            if (s == 0 && normalBlocks.Count >=5)
-            {
-                // remove last 5 normal blocks
-                normalBlocks.RemoveRange(normalBlocks.Count - 5, 5);
-            }
-            else if (s == 5 && invisbleBlocks.Count >= 5) 
-            {
-                // remove last 5 invisble blocks
-                invisbleBlocks.RemoveRange(invisbleBlocks.Count - 5, 5);
-            }
-            else
-            {
-                y += 2.5f;
-            }
+            y += 2.5f;
+
         }
     }
 
