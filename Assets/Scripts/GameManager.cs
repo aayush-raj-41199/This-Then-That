@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static bool inverse = false;
-    public GameObject normalBlock, invisibleBlock;
+    public GameObject normalBlock, invisibleBlock, player;
     public Text titleText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
@@ -30,17 +30,17 @@ public class GameManager : MonoBehaviour
     {
         while (true)
         {
-            int rand = 0;//Random.Range(0, 100) % 2;
+            int rand = Random.Range(0, 100) % 2;
             switch (rand) {
                 case 0:
+                    titleText.text = "THIS";
                     inverse = false;
                     switchBlockColliders(false);
-                    titleText.text = "THIS";
                     break;
                 case 1:
+                    titleText.text = "THEN";
                     inverse = true;
                     switchBlockColliders(true);
-                    titleText.text = "THEN";
                     break;
             }
             yield return new WaitForSeconds(seconds);
@@ -74,12 +74,12 @@ public class GameManager : MonoBehaviour
             if (s == 0)
             {
                 // remove last 5 normal blocks
-                normalBlocks.RemoveRange(normalBlocks.Count - 6, 5);
+                normalBlocks.RemoveRange(normalBlocks.Count - 5, 5);
             }
             else if (s == 5) 
             {
                 // remove last 5 invisble blocks
-                normalBlocks.RemoveRange(normalBlocks.Count - 6, 5);
+                normalBlocks.RemoveRange(normalBlocks.Count - 5, 5);
             }
             else
             {
@@ -90,12 +90,9 @@ public class GameManager : MonoBehaviour
 
     void switchBlockColliders(bool normal) 
     {
-        foreach(GameObject gameObject in normalBlocks) {
-            gameObject.GetComponent<BoxCollider2D>().enabled = normal;
-        }
-        foreach (GameObject gameObject in invisbleBlocks)
-        {
-            gameObject.GetComponent<BoxCollider2D>().enabled = !normal;
+        player.layer = LayerMask.NameToLayer(normal ? "PlayerParts" : "PlayerPartsInvisible");
+        foreach (Transform child in player.transform) { 
+            child.gameObject.layer = LayerMask.NameToLayer(normal ? "PlayerParts" : "PlayerPartsInvisible");
         }
     }
 }

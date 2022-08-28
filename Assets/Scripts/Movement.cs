@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpForce = 10f;
     private bool isOnGround = false;
     public float positionRadius;
-    public LayerMask ground;
+    public LayerMask ground, blockNormal, blockInvisible;
     public Transform playerPos;
     public Transform rightHandPos;
     public Transform leftHandPos;
@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
         }
 
 
-        if (Physics2D.OverlapCircle(playerPos.position, positionRadius, ground) || Physics2D.OverlapCircle(rightHandPos.position, positionRadius, ground) || Physics2D.OverlapCircle(leftHandPos.position, positionRadius, ground)) 
+        if (checkIfOnBlock(ground) || (GameManager.inverse ? checkIfOnBlock(blockInvisible) : checkIfOnBlock(blockNormal))) 
         {
             isOnGround = true;
         }
@@ -95,5 +95,10 @@ public class Movement : MonoBehaviour
         rightLegRb.AddForce(Vector2.left * (speed * 1000) * Time.deltaTime);
         yield return new WaitForSeconds(seconds);
         leftLegRb.AddForce(Vector2.left * (speed * 1000) * Time.deltaTime);
+    }
+
+    bool checkIfOnBlock(LayerMask mask) 
+    {
+        return Physics2D.OverlapCircle(playerPos.position, positionRadius, mask) || Physics2D.OverlapCircle(rightHandPos.position, positionRadius, mask) || Physics2D.OverlapCircle(leftHandPos.position, positionRadius, mask);
     }
 }
