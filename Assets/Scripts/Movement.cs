@@ -67,7 +67,7 @@ public class Movement : MonoBehaviour
         }
 
 
-        if (checkIfOnBlock(ground) || (GameManager.inverse ? checkIfOnBlock(blockInvisible) : checkIfOnBlock(blockNormal))) 
+        if (checkIfOnBlock(ground) || (!GameManager.inverse ? checkIfOnBlock(blockInvisible) : checkIfOnBlock(blockNormal))) 
         {
             isOnGround = true;
         }

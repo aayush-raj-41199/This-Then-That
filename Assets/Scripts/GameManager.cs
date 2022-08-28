@@ -71,15 +71,15 @@ public class GameManager : MonoBehaviour
                 }
                 s += c;
             }
-            if (s == 0)
+            if (s == 0 && normalBlocks.Count >=5)
             {
                 // remove last 5 normal blocks
                 normalBlocks.RemoveRange(normalBlocks.Count - 5, 5);
             }
-            else if (s == 5) 
+            else if (s == 5 && invisbleBlocks.Count >= 5) 
             {
                 // remove last 5 invisble blocks
-                normalBlocks.RemoveRange(normalBlocks.Count - 5, 5);
+                invisbleBlocks.RemoveRange(invisbleBlocks.Count - 5, 5);
             }
             else
             {
