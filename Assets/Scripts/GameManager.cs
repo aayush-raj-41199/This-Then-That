@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public bool inverse = false;
+    public static bool inverse = true;
     public GameObject normalBlock, invisibleBlock;
+    public Text titleText;
     List<GameObject> normalBlocks;
     List<GameObject> invisbleBlocks;
 
@@ -15,12 +17,33 @@ public class GameManager : MonoBehaviour
         normalBlocks = new List<GameObject>();
         invisbleBlocks = new List<GameObject>();
         spawnPlatforms(5);
+        StartCoroutine(SituationChanger(10));
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator SituationChanger(int seconds) {
+        while (true)
+        {
+            int rand = Random.Range(0, 100) % 2;
+            switch (rand) {
+                case 0:
+                    inverse = true;
+                    switchBlockColliders(false);
+                    titleText.text = "THIS";
+                    break;
+                case 1:
+                    inverse = false;
+                    switchBlockColliders(true);
+                    titleText.text = "THEN";
+                    break;
+            }
+            yield return new WaitForSeconds(seconds);
+        }
     }
 
     void spawnPlatforms(int platformCount) {
@@ -47,13 +70,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void switchBlockColliders() {
+    void switchBlockColliders(bool normal) {
         foreach(GameObject gameObject in normalBlocks) {
-            gameObject.GetComponent<BoxCollider2D>().enabled = !gameObject.GetComponent<BoxCollider2D>().enabled;
+            gameObject.GetComponent<BoxCollider2D>().enabled = normal;
         }
         foreach (GameObject gameObject in invisbleBlocks)
         {
-            gameObject.GetComponent<BoxCollider2D>().enabled = !gameObject.GetComponent<BoxCollider2D>().enabled;
+            gameObject.GetComponent<BoxCollider2D>().enabled = !normal;
         }
     }
 }
