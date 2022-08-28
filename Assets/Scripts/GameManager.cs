@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -144,5 +145,9 @@ public class GameManager : MonoBehaviour
         foreach (Transform child in player.transform) { 
             child.gameObject.layer = LayerMask.NameToLayer(normal ? "PlayerParts" : "PlayerPartsInvisible");
         }
+    }
+
+    public void reload() {
+        SceneManager.LoadScene(1);
     }
 }
