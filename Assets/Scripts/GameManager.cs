@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         normalBlocks = new List<GameObject>();
         invisbleBlocks = new List<GameObject>();
         StartCoroutine(SpawnPlatforms(100, 5));
@@ -39,11 +40,15 @@ public class GameManager : MonoBehaviour
             highestY = Mathf.Max(playerhead.transform.position.y, highestY);
             scoreText.text = "Score : " + (int)((highestY - startY)/2);
             endScoreText.text = "Your Score : " + (int)((highestY - startY) / 2);
-            int tm = (int)(60 - Time.time + startTime);
+            int tm = (int)(80 - Time.time + startTime);
             timeText.text = "" + tm;
             if (tm == 0) {
                 gameEnd();
             }
+        }
+        if (Input.GetKeyDown("r"))
+        {
+            SceneManager.LoadScene(1);
         }
     }
     void gameEnd() {
@@ -147,7 +152,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void reload() {
+    public void reload()
+    {
         SceneManager.LoadScene(1);
     }
 }

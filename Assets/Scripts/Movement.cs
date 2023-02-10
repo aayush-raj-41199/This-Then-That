@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    public AudioManager audiomanager;
     public GameObject leftLeg;
     public GameObject rightLeg;
     Rigidbody2D leftLegRb;
@@ -25,6 +26,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audiomanager = GameManager.FindObjectOfType<AudioManager>();
         leftLegRb = leftLeg.GetComponent<Rigidbody2D>();
         rightLegRb = rightLeg.GetComponent<Rigidbody2D>();
     }
@@ -63,6 +65,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            audiomanager.Stop("PlayerWalk");
             anim.Play("Idle");
         }
 
@@ -80,6 +83,12 @@ public class Movement : MonoBehaviour
         if (isOnGround == true && Input.GetKeyDown(KeyCode.Space))
         {
             Rb.AddForce(Vector2.up * jumpForce);
+            audiomanager.Play("PlayerJump");
+        }
+
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+        {
+           audiomanager.Play("PlayerWalk");
         }
     }
 

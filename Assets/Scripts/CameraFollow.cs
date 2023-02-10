@@ -15,9 +15,9 @@ public class CameraFollow : MonoBehaviour
         playerPosition = player.GetComponent<Transform>();
     }
 
-    void LateUpdate()
+    void Update()
     {
         Vector3 desiredPosition = new Vector3(0, playerPosition.position.y + offset.y, -10);
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);        
+        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);        
     }
 }
